@@ -26,7 +26,9 @@ jobs:
           distribution: 'adopt'
 
       - name: Build Java App
-        run: mvn package install -DskipTests
+        run: |
+          java --version
+          mvn package install -DskipTests
 
       - name: Test Java App
         run: mvn test 

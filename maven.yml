@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v4
         with: 
           java-version: '11'
-          distribution: 'adopt'
+          distribution: 'oracle'
 
       - name: Build Java App
         run: mvn package install -DskipTests

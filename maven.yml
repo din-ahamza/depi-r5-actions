@@ -3,6 +3,9 @@ name: Java CICD
 on: 
   workflow_dispatch:
 
+push:
+  branches: [ "main" ]
+
 concurrency: 
   group: 'java'
   cancel-in-progress: false

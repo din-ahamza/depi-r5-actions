@@ -29,10 +29,10 @@ jobs:
         run: mvn test 
 
       - name: Build Docker Image 
-        run: docker build -t ${{ vars.IMAGENAME }}:v${{ GITHUB_RUN_NUMBER }} .  
+        run: docker build -t ${{ vars.IMAGENAME }}:v${{ github.run_number }} .  
       
       - name: Docker Login 
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Push Docker Image
-        run: docker push ${{ vars.IMAGENAME }}:v${{ GITHUB_RUN_NUMBER }}
+        run: docker push ${{ vars.IMAGENAME }}:v${{ github.run_number }}

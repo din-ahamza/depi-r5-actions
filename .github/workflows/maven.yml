@@ -1,0 +1,38 @@
+name: Java CICD
+
+on: 
+  workflow_dispatch:
+
+concurrency: 
+  group: 'java'
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build JAR 
+    runs-on: ubuntu-latest
+    environment: dina_hamza
+    steps: 
+      - name: Checkout Repository 
+        uses: actions/checkout@v7
+
+      - name: set up JDK 11 
+        uses: actions/setup_java@v4
+        with: 
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Build Java App
+        run: mvn package install -DskipTests
+
+      - name: Test Java App
+        run: mvn test 
+
+      - name: Build Docker Image 
+        run: docker build -t ${{ vars.IMAGENAME }}:v${{ GITHUB_RUN_NUMBER }} .  
+      
+      - name: Docker Login 
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Push Docker Image
+        run: docker push ${{ vars.IMAGENAME }}:v${{ GITHUB_RUN_NUMBER }}

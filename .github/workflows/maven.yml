@@ -28,14 +28,13 @@ jobs:
         run: |
           java --version
           mvn package install -DskipTests
-          
+
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: java-jar
           path: target/*.jar
           if-no-files-found: error
-          retention-days: 7
 
       - name: Test Java App
         run: mvn test 
